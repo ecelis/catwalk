@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { StaffPaperProps } from "../types/music";
 import { Vex, EasyScore, System } from "vexflow";
+import Container from "react-bootstrap/Container";
 
 const StaffPaper = ({
   vf,
@@ -20,9 +21,8 @@ const StaffPaper = ({
         new Vex.Flow.Factory({
           renderer: {
             elementId: "vf",
-            width: 1200,
+            width: 800,
             height: 600,
-            background: "grey",
           },
         })
       );
@@ -44,7 +44,11 @@ const StaffPaper = ({
       vf?.draw();
     }
   }, [vf, score, setVf, system]);
-  return <div id="vf"></div>;
+  return (
+    <Container>
+      <div id="vf"></div>
+    </Container>
+  );
 };
 
 export default StaffPaper;

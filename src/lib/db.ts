@@ -2,7 +2,7 @@ export enum STORES {
   SCORE = "score",
 }
 
-const DB: string = "catwalk";
+export const DB: string = "catwalk";
 
 export const DBConfig = {
   name: DB,
@@ -14,6 +14,7 @@ export const DBConfig = {
       storeSchema: [
         { name: "title", keypath: "title", options: { unique: false } },
         { name: "author", keypath: "author", options: { unique: false } },
+        { name: "score", keypath: "score", options: { unique: false } },
       ],
     },
   ],
