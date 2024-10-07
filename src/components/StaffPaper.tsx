@@ -43,10 +43,7 @@ const StaffPaper = ({
         .addTimeSignature("4/4");
       vf?.draw();
     }
-    console.log("vf", vf);
-    console.log("score", score);
-    console.log("system", system);
-  }, [vf, score, setVf]);
+  }, [vf, score, setVf, system]);
   return <div id="vf"></div>;
 };
 
