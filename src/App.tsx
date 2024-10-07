@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navigation from "./components/Navigation";
+import { initDB } from "./lib/db";
 
 const VF = Vex.Flow;
 console.log("VexFlow Build: " + JSON.stringify(VF.BUILD));
@@ -17,7 +18,8 @@ const notes = [
 const stave = new Stave(10, 0, 190);
 
 function App() {
-  const vfRef = useRef(null);
+  const [isDBready, setIsDBready] = useState<boolean>(false);
+  const vfRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (vfRef) {
@@ -47,6 +49,12 @@ function App() {
       // console.log("Saved score.pdf");
     }
   }, []);
+
+  const handleInitDB = async () => {
+    const status = await initDB();
+    setIsDBready(status);
+  };
+
   return (
     <Container fluid>
       <Row>
