@@ -4,7 +4,13 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navigation from "./components/Navigation";
-import { initDB } from "./lib/db";
+import { DBConfig } from "./lib/db";
+import { initDB } from "react-indexed-db-hook";
+import BottomPanel from "./components/BottomPanel";
+import PropertiesPanel from "./components/PropertiesPanel";
+import ToolboxPanel from "./components/ToolboxPanel";
+
+initDB(DBConfig);
 
 const VF = Vex.Flow;
 console.log("VexFlow Build: " + JSON.stringify(VF.BUILD));
@@ -18,13 +24,11 @@ const notes = [
 const stave = new Stave(10, 0, 190);
 
 function App() {
-  const [isDBready, setIsDBready] = useState<boolean>(false);
   const vfRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (vfRef) {
       console.log(vfRef);
-      // const div: string | HTMLCanvasElement | HTMLDivElement = document.getElementById("vf") as HTMLDivElement;
       const renderer = new VF.Renderer(
         vfRef.current as unknown as HTMLDivElement,
         VF.Renderer.Backends.SVG
@@ -50,25 +54,19 @@ function App() {
     }
   }, []);
 
-  const handleInitDB = async () => {
-    const status = await initDB();
-    setIsDBready(status);
-  };
-
   return (
     <Container fluid>
+      <Navigation />
       <Row>
-        <Col>
-          <Navigation />
-        </Col>
-      </Row>
-      <Row>
+        <ToolboxPanel />
         <Col>
           <main>
             <div id="vf" ref={vfRef}></div>
           </main>
         </Col>
+        <PropertiesPanel ctx={{}} />
       </Row>
+      <BottomPanel ctx={{}} />
     </Container>
   );
 }
